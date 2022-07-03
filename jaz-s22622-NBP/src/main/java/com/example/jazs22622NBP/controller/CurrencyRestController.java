@@ -39,4 +39,10 @@ public class CurrencyRestController {
         return ResponseEntity.ok(currencyService.getCurrency(value, fromDate, toDate));
     }
 
-}
+
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok(" ok ");
+    }
+
+    }

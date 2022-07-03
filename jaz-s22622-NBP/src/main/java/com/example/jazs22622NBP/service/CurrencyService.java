@@ -34,19 +34,18 @@ public class CurrencyService {
         System.out.println("Data konca " +to);
         NBPdata data = restTemplate.getForObject(url + "/{from}/{to}?format=json", NBPdata.class, from, to);
 
+        BigDecimal avg = BigDecimal.valueOf(data.getRates().stream().map(Currency::getMid).mapToDouble(s ->s).findAny().orElseThrow()).round(new MathContext(2));
+//
+//        BigDecimal avg = BigDecimal.valueOf(data.getRates().stream().map(Currency::getMid).mapToDouble(s -> s).average().orElseThrow())
+//                .round(new MathContext(3));
+        
+            CurrencyDetails response = new CurrencyDetails(avg, value, from, to);
+            CurrencyDetails waluty = new CurrencyDetails(avg);
 
+            currencyRepository.save(response);
 
-        BigDecimal avg = BigDecimal.valueOf(data.getRates().stream().map(Currency::getMid).mapToDouble(s -> s).average().orElseThrow())
-                .round(new MathContext(3));
+            return waluty;
 
-
-        if (value<avg)
-        CurrencyDetails response = new CurrencyDetails(avg, value, from, to);
-        CurrencyDetails waluty = new CurrencyDetails(avg, value, from, to);
-
-        currencyRepository.save(response);
-
-        return waluty ;
     }
 
 

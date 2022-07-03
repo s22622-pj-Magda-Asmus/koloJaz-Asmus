@@ -44,8 +44,9 @@ public class CurrencyDetails {
 //    }
 
 
-//    public CurrencyDetails() {
-//    }
+    public CurrencyDetails(BigDecimal avg) {
+        this.avg=avg;
+    }
 
     public CurrencyDetails( BigDecimal avg, double value, LocalDate from, LocalDate to) {
         this.avg = avg;
